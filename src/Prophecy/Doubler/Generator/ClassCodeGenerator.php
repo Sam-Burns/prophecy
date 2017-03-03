@@ -80,13 +80,9 @@ class ClassCodeGenerator
             }
         }
 
-        if (version_compare(PHP_VERSION, '7.0', '>=')) {
-            return $method->hasReturnType() && $method->getReturnType() !== 'void'
-                ? sprintf(': %s', $method->getReturnType())
-                : '';
-        }
-
-        return '';
+        return $method->hasReturnType() && $method->getReturnType() !== 'void'
+            ? sprintf(': %s', $method->getReturnType())
+            : '';
     }
 
     private function generateArguments(array $arguments)
@@ -118,11 +114,8 @@ class ClassCodeGenerator
                     case 'int':
                     case 'float':
                     case 'bool':
-                        if (version_compare(PHP_VERSION, '7.0', '>=')) {
-                            $php .= $hint;
-                            break;
-                        }
-                        // Fall-through to default case for PHP 5.x
+                        $php .= $hint;
+                        break;
 
                     default:
                         $php .= '\\'.$hint;

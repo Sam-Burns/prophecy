@@ -70,7 +70,7 @@ class MethodProphecy
             $this->withArguments($arguments);
         }
 
-        if (version_compare(PHP_VERSION, '7.0', '>=') && true === $reflectedMethod->hasReturnType()) {
+        if ($reflectedMethod->hasReturnType()) {
             $type = (string) $reflectedMethod->getReturnType();
 
             if ('void' === $type) {

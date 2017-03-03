@@ -143,7 +143,7 @@ class ClassMirror
             $node->setReturnsReference();
         }
 
-        if (version_compare(PHP_VERSION, '7.0', '>=') && $method->hasReturnType()) {
+        if ($method->hasReturnType()) {
             $returnType = (string) $method->getReturnType();
             $returnTypeLower = strtolower($returnType);
 
@@ -177,7 +177,7 @@ class ClassMirror
 
         $node->setTypeHint($this->getTypeHint($parameter));
 
-        if ($this->isVariadic($parameter)) {
+        if ($parameter->isVariadic()) {
             $node->setAsVariadic();
         }
 
@@ -194,7 +194,7 @@ class ClassMirror
 
     private function hasDefaultValue(ReflectionParameter $parameter)
     {
-        if ($this->isVariadic($parameter)) {
+        if ($parameter->isVariadic()) {
             return false;
         }
 
@@ -224,20 +224,11 @@ class ClassMirror
             return 'array';
         }
 
-        if (version_compare(PHP_VERSION, '5.4', '>=') && true === $parameter->isCallable()) {
+        if ($parameter->isCallable()) {
             return 'callable';
         }
 
-        if (version_compare(PHP_VERSION, '7.0', '>=') && true === $parameter->hasType()) {
-            return (string) $parameter->getType();
-        }
-
-        return null;
-    }
-
-    private function isVariadic(ReflectionParameter $parameter)
-    {
-        return PHP_VERSION_ID >= 50600 && $parameter->isVariadic();
+        return (string) $parameter->getType();
     }
 
     private function isNullable(ReflectionParameter $parameter)

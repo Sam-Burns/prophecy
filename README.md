@@ -44,24 +44,14 @@ class UserTest extends PHPUnit_Framework_TestCase
 
 ### Prerequisites
 
-Prophecy requires PHP 5.3.3 or greater.
+Prophecy requires PHP 5.3.3 or greater.  Version 2 requires PHP 7.0 or greater.
 
 ### Setup through composer
 
 First, add Prophecy to the list of dependencies inside your `composer.json`:
 
-```json
-{
-    "require-dev": {
-        "phpspec/prophecy": "~1.0"
-    }
-}
-```
-
-Then simply install it with composer:
-
 ```bash
-$> composer install --prefer-dist
+composer require phpspec/prophecy
 ```
 
 You can read more about Composer on its [official webpage](http://getcomposer.org).
